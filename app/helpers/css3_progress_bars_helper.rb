@@ -49,12 +49,12 @@ module Css3ProgressBarsHelper
       handle_tiny_classes(html_classes)
     end
 
-    bars = ''
-    percentages[0..4].each_with_index do |p, i|
-      bars += bar_div((html_classes[:bar_classes] << bar_colors[i]), bar_style(p))
+    mortice_html = content_tag(:div, :class => html_classes[:mortice_classes].join(' ')) do
+      percentages[0..4].each_with_index do |p, i|
+        concat(bar_div((html_classes[:bar_classes] + [bar_colors[i]]), bar_style(p)))
+      end
     end
 
-    mortice_html = mortice_div(bars, html_classes[:mortice_classes])
     content_tag :div, mortice_html, :class => html_classes[:container_classes].join(' ')
   end
 
