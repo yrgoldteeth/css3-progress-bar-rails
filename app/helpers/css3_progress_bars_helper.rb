@@ -1,64 +1,91 @@
+# Rails Helper that generates the HTML for displaying a CSS3 progress bar using
+# Josh Sullivan's CSS3-Progress-bars (https://github.com/jsullivan/CSS3-Progress-bars).
 module Css3ProgressBarsHelper
+
+  # Accepts a value between 0 and 100 that represents the percentage amount displayed
+  # as filled on the progress bar's div style.
+  #
+  # An options hash may also be passed to the method, with boolean options for
+  # :rounded and :tiny.  Pass a string in the :color option from the available
+  # choices of 'green', 'orange', 'pink', 'blue', and 'purple'.
   def progress_bar percentage, *opts
     options = opts.extract_options!
 
-    container_classes = %w(bar_container)
-    bar_classes       = %w(progress)
-    mortice_classes   = %w(bar_mortice)
+    html_classes = setup_default_container_classes
 
     if options[:rounded] && options[:rounded] == true
-      container_classes << 'rounded_bar_container'
-      bar_classes       << 'rounded'
-      mortice_classes   << 'rounded'
+      handle_rounded_classes(html_classes)
+    end
+    
+    if options[:tiny] && options[:tiny] == true
+      handle_tiny_classes(html_classes)
     end
 
     if options[:color] && bar_colors.include?(options[:color])
-      container_classes << "#{options[:color]}_container"
-      bar_classes       << options[:color]
-      mortice_classes   << "#{options[:color]}_mortice"
+      handle_color_classes(html_classes, options[:color])
     end
 
-    if options[:tiny] && options[:tiny] == true
-      container_classes << 'container_tiny'
-      bar_classes       << 'progress_tiny'
-      mortice_classes   << 'mortice_tiny'
-    end
+    bar_html = bar_div(html_classes[:bar_classes], bar_style(percentage))
+    mortice_html = mortice_div(bar_html, html_classes[:mortice_classes])
 
-    bar_html = bar_div(bar_classes, bar_style(percentage))
-    mortice_html = mortice_div(bar_html, mortice_classes)
-
-    content_tag :div, mortice_html, :class => container_classes.join(' ')
+    content_tag :div, mortice_html, :class => html_classes[:container_classes].join(' ')
   end
 
-  def combo_progress_bar *opts
+  # Accepts an array of values between 0 and 100 to represent the combo progress
+  # values.  As there is a limit to the number of colors, only the first five
+  # elements of the array will be used.
+  #
+  # An options hash may also be passed to the method, with boolean options for
+  # :rounded and :tiny.
+  def combo_progress_bar percentages, *opts
     options = opts.extract_options!
-
-    container_classes = %w(bar_container)
-    bar_classes       = %w(progress)
-    mortice_classes   = %w(bar_mortice)
+    html_classes = setup_default_container_classes
 
     if options[:rounded] && options[:rounded] == true
-      container_classes << 'rounded_bar_container'
-      bar_classes       << 'rounded'
-      mortice_classes   << 'rounded'
+      handle_rounded_classes(html_classes)
     end
-
+    
     if options[:tiny] && options[:tiny] == true
-      container_classes << 'container_tiny'
-      bar_classes       << 'progress_tiny'
-      mortice_classes   << 'mortice_tiny'
+      handle_tiny_classes(html_classes)
     end
 
     bars = ''
-    options[:percentages][0..4].each_with_index do |p, i|
-      bars += bar_div((bar_classes << bar_colors[i]), bar_style(p))
+    percentages[0..4].each_with_index do |p, i|
+      bars += bar_div((html_classes[:bar_classes] << bar_colors[i]), bar_style(p))
     end
 
-    mortice_html = mortice_div(bars, mortice_classes)
-    content_tag :div, mortice_html, :class => container_classes.join(' ')
+    mortice_html = mortice_div(bars, html_classes[:mortice_classes])
+    content_tag :div, mortice_html, :class => html_classes[:container_classes].join(' ')
   end
 
   protected
+
+  def setup_default_container_classes
+    {
+      :container_classes => %w(bar_container),
+      :bar_classes       => %w(progress),
+      :mortice_classes   => %w(bar_mortice)
+    }
+  end
+
+  def handle_color_classes html_classes, color
+    html_classes[:container_classes] << "#{color}_container"
+    html_classes[:bar_classes]       << color
+    html_classes[:mortice_classes]   << "#{color}_mortice"
+  end
+
+  def handle_tiny_classes html_classes
+    html_classes[:container_classes] << 'container_tiny'
+    html_classes[:bar_classes]       << 'progress_tiny'
+    html_classes[:mortice_classes]   << 'mortice_tiny'
+  end
+
+  def handle_rounded_classes html_classes
+    html_classes[:container_classes] << 'rounded_bar_container'
+    html_classes[:bar_classes]       << 'rounded'
+    html_classes[:mortice_classes]   << 'rounded'
+  end
+
   def bar_colors
     %w(green orange pink blue purple)
   end
