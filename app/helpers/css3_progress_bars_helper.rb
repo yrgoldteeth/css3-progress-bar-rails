@@ -1,4 +1,4 @@
-module Css3ProgressBars
+module Css3ProgressBarsHelper
   def progress_bar percentage, *opts
     options = opts.extract_options!
 
