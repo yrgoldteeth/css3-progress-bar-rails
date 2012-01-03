@@ -9,6 +9,7 @@ module Css3ProgressBarsHelper
   # :rounded and :tiny.  Pass a string in the :color option from the available
   # choices of 'green', 'orange', 'pink', 'blue', and 'purple'.
   def progress_bar percentage, *opts
+    validate_percentage(percentage)
     options = opts.extract_options!
 
     html_classes = setup_default_container_classes
@@ -37,6 +38,7 @@ module Css3ProgressBarsHelper
   #
   # An options hash may also be passed to the method, with a boolean option available for :tiny
   def combo_progress_bar percentages, *opts
+    validate_percentages(percentages[0..4])
     options = opts.extract_options!
     html_classes = setup_default_container_classes
     
@@ -54,6 +56,14 @@ module Css3ProgressBarsHelper
   end
 
   protected
+
+  def validate_percentage percentage
+    (0..100).to_a.include?(percentage.to_i) ? true : (raise ArgumentError, "Invalid Percentage Value")
+  end
+
+  def validate_percentages percentages
+    percentages.each{|p|validate_percentage(p)}
+  end
 
   def setup_default_container_classes
     {
