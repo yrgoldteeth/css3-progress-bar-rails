@@ -12,7 +12,7 @@ Thought it might be useful.
 
 This gem assumes you're using Rails 3.1+, including the asset pipeline.
 
-Into the Gemfile:
+Into the Gemfile:  
     gem 'css3-progress-bar-rails'
 
 Into the application.css header:
