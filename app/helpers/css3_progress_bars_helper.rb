@@ -35,15 +35,10 @@ module Css3ProgressBarsHelper
   # values.  As there is a limit to the number of colors, only the first five
   # elements of the array will be used.
   #
-  # An options hash may also be passed to the method, with boolean options for
-  # :rounded and :tiny.
+  # An options hash may also be passed to the method, with a boolean option available for :tiny
   def combo_progress_bar percentages, *opts
     options = opts.extract_options!
     html_classes = setup_default_container_classes
-
-    if options[:rounded] && options[:rounded] == true
-      handle_rounded_classes(html_classes)
-    end
     
     if options[:tiny] && options[:tiny] == true
       handle_tiny_classes(html_classes)
