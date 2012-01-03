@@ -57,6 +57,8 @@ module Css3ProgressBarsHelper
 
   protected
 
+  # Yeah, if you pass a string that non-numeric, it'll validate because 'string'.to_i returns 0.
+  # I can live with it.
   def validate_percentage percentage
     (0..100).to_a.include?(percentage.to_i) ? true : (raise ArgumentError, "Invalid Percentage Value")
   end

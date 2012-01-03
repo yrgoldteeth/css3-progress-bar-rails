@@ -9,7 +9,7 @@ include Css3ProgressBarsHelper
 describe Css3ProgressBarsHelper do
   describe '#combo_progress_bar' do
     describe 'given a collection that contains an invalid percentage value' do
-      it 'raises and ArgumentError' do
+      it 'raises an ArgumentError' do
         proc {combo_progress_bar([1,2,888])}.must_raise ArgumentError
         proc {combo_progress_bar([1,2,'99999',4,5])}.must_raise ArgumentError
       end
