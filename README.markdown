@@ -20,6 +20,8 @@ Into the application.css header:
 
     *= require 'css3-progress-bar'
 
+[View Examples Here][examples]
+
 ## Indication
 
 Except where indicated:  
@@ -28,4 +30,4 @@ Copyright (c) 2011 [Nicholas Fine][vanity], released under the MIT license.
 [js]: http://dipperstove.com/index.html
 [blog]: http://dipperstove.com/design/css3-progress-bars.html
 [vanity]: http://ndfine.com
-
+[examples]: http://ndfine.com/2012/01/03/css3-progress-bars-for-rails.html
