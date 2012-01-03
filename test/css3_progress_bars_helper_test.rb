@@ -24,6 +24,10 @@ describe Css3ProgressBarsHelper do
         end
       end
 
+      it 'ignores any values not in the first five members of the collection' do
+        Nokogiri::HTML(combo_progress_bar([1,2,3,4,5,6,7])).search('div').count.must_equal 7
+      end
+
       it 'returns the correct number of divs' do
         Nokogiri::HTML(combo_progress_bar([1,2,3,4,5])).search('div').count.must_equal 7
         Nokogiri::HTML(combo_progress_bar([1,2,3,4])).search('div').count.must_equal 6
