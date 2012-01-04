@@ -1,5 +1,7 @@
 # CSS3 Progress Bars for Rails
 
+[![Travis CI Build Status](http://travis-ci.org/yrgoldteeth/css3-progress-bar-rails.png)](http://travis-ci.org/yrgoldteeth/css3-progress-bar-rails)
+
 ## Inspiration
 
 [Josh Sullivan][js] made some very pretty [progress bars][blog] in CSS3.
