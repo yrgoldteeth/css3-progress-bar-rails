@@ -4,14 +4,14 @@ require 'action_view'
 require './app/helpers/css3_progress_bars_helper'
 include ActionView::Helpers
 include ActionView::Context
-include Css3ProgressBarsHelper
+include Css3ProgressBars::Helper
 
-describe Css3ProgressBarsHelper do
+describe Css3ProgressBars::Helper do
   describe '#combo_progress_bar' do
     describe 'given a collection that contains an invalid percentage value' do
       it 'raises an ArgumentError' do
-        proc {combo_progress_bar([1,2,888])}.must_raise ArgumentError
-        proc {combo_progress_bar([1,2,'99999',4,5])}.must_raise ArgumentError
+        proc {combo_progress_bar([1,2,888])}.must_raise Css3ProgressBars::ComboBarError
+        proc {combo_progress_bar([1,2,'99999',4,5])}.must_raise Css3ProgressBars::ComboBarError
       end
     end
     describe 'given a collection of valid percentage values' do
@@ -37,13 +37,19 @@ describe Css3ProgressBarsHelper do
 
   describe '#progress_bar' do
     describe 'given an invalid percentage value' do
-      it 'raises an ArgumentError' do
-        proc {progress_bar(101)}.must_raise ArgumentError
-        proc {progress_bar(-1)}.must_raise ArgumentError
-        proc {progress_bar('1000')}.must_raise ArgumentError
+      describe 'greater than 100' do
+        it 'sets the progress div width to 100' do
+          Nokogiri::HTML(progress_bar(101)).search('div.progress').first.attributes["style"].value.must_equal "width: 100%;"
+          Nokogiri::HTML(progress_bar(10100)).search('div.progress').first.attributes["style"].value.must_equal "width: 100%;"
+        end
+      end
+
+      describe 'less than 0' do
+        it 'sets the progress div width to 0' do
+          Nokogiri::HTML(progress_bar(-203)).search('div.progress').first.attributes["style"].value.must_equal "width: 0%;"
+        end
       end
     end
-
     describe 'given a valid percentage value' do
       describe 'with the color option' do
         describe 'set to an invalid color' do
