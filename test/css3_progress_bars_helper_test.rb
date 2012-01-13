@@ -4,9 +4,9 @@ require 'action_view'
 require './app/helpers/css3_progress_bars_helper'
 include ActionView::Helpers
 include ActionView::Context
-include Css3ProgressBars::Helper
+include Css3ProgressBarsHelper
 
-describe Css3ProgressBars::Helper do
+describe Css3ProgressBarsHelper do
   describe '#combo_progress_bar' do
     describe 'given a collection that contains an invalid percentage value' do
       it 'raises an ArgumentError' do
