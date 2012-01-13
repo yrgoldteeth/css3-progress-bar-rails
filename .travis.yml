@@ -7,3 +7,6 @@ rvm:
   - jruby
 #  - rbx-19mode # rbx-19mode dies on nokogiri dependency
   - rbx-18mode
+branches:
+  only:
+    - master
