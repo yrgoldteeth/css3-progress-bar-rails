@@ -7,6 +7,34 @@ include ActionView::Context
 include Css3ProgressBarsHelper
 
 describe Css3ProgressBarsHelper do
+  describe '#bootstrap_progress_bar' do
+    describe 'with the color option' do
+      describe 'using an invalid color option' do
+        it 'does not set a color class in container div' do
+          Nokogiri::HTML(bootstrap_progress_bar(33, :color => 'foo')).search('div.progress').first.attributes["class"].wont_match /progress-foo/
+        end
+      end
+
+      describe 'using a valid color option' do
+        it 'sets the correct class in container div' do
+          Nokogiri::HTML(bootstrap_progress_bar(33, :color => 'info')).search('div.progress').first.attributes["class"].must_match /progress-info/
+        end
+      end
+    end
+
+    describe 'with the striped option' do
+      it 'sets the correct class in container div' do
+        Nokogiri::HTML(bootstrap_progress_bar(33, :striped => true)).search('div.progress').first.attributes["class"].must_match /progress-striped/
+      end
+    end
+
+    describe 'with the active option' do
+      it 'sets the correct class in container div' do
+        Nokogiri::HTML(bootstrap_progress_bar(12, :active => true)).search('div.progress').first.attributes["class"].must_match /active/
+      end
+    end
+  end
+
   describe '#combo_progress_bar' do
     describe 'given a collection that contains an invalid percentage value' do
       it 'raises an ArgumentError' do

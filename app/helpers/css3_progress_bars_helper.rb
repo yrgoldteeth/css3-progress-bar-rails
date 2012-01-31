@@ -33,6 +33,29 @@ module Css3ProgressBarsHelper
     content_tag :div, mortice_html, :class => html_classes[:container_classes].join(' ')
   end
 
+  def bootstrap_progress_bar percentage, *opts
+    percentage = scrub_percentage(percentage)
+    options = opts.extract_options!
+
+    container_classes = %w(progress)
+
+    if options[:striped] && options[:striped] == true
+      container_classes << 'progress-striped'
+    end
+
+    if options[:active] && options[:active] == true
+      container_classes << 'active'
+    end
+
+    if options[:color] && %w(info success danger).include?(options[:color])
+      container_classes << "progress-#{options[:color]}"
+    end
+
+    bar_html = bar_div(%w('bar'), bar_style(percentage))
+
+    content_tag :div, bar_html, :class => container_classes.join(' ')
+  end
+
   # Accepts an array of values between 0 and 100 to represent the combo progress
   # values.  As there is a limit to the number of colors, only the first five
   # elements of the array will be used.
