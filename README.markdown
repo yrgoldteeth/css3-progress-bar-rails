@@ -1,8 +1,8 @@
-# CSS3 Progress Bars for Rails
+## CSS3 Progress Bars for Rails
 
 [![Travis CI Build Status](http://travis-ci.org/yrgoldteeth/css3-progress-bar-rails.png)](http://travis-ci.org/yrgoldteeth/css3-progress-bar-rails)
 
-## Inspiration
+### Inspiration
 
 [Josh Sullivan][js] made some very pretty [progress bars][blog] in CSS3.
 
@@ -10,7 +10,7 @@
 
 Thought it might be useful.
 
-## Instruction
+### Instruction
 
 This gem assumes you're using Rails 3.1+, including the asset pipeline.
 
@@ -33,7 +33,7 @@ progress bar styling as well.  To use:
 
 [View Examples Here][examples]
 
-## Indication
+### Indication
 
 Except where indicated:  
 Copyright (c) 2012 [Nicholas Fine][vanity], released under the MIT license. 
