@@ -36,9 +36,14 @@ module Css3ProgressBarsHelper
   def bootstrap_progress_bar percentage, *opts
     percentage = scrub_percentage(percentage)
     options = opts.extract_options!
+    message = ''
 
     container_classes = %w(progress)
     content_classes = %w(progress-bar)
+
+    if options[:message] && options[:message] != ''
+      message = options[:message]
+    end
 
     if options[:striped] && options[:striped] == true
       container_classes << 'progress-striped'
@@ -53,10 +58,10 @@ module Css3ProgressBarsHelper
         container_classes << "progress-#{options[:color]}"
 
         bar_html = bar_div(%w('bar'), bar_style(percentage))
-       # content_tag :div, bar_html, :class => container_classes.join(' ')
       else
         content_classes << "progress-bar-#{options[:color]}"
         bar_html = bar_div(content_classes, bar_style(percentage))
+        bar_html << bar_span(message)
       end
     end
     content_tag :div, bar_html, :class => container_classes.join(' ')
@@ -139,6 +144,10 @@ module Css3ProgressBarsHelper
 
   def bar_div classes, style
     content_tag :div, '', :style => style, :class => classes.join(' ')
+  end
+
+  def bar_span text
+    content_tag :span, text
   end
 
   def mortice_div bar_html, classes
