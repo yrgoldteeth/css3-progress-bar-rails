@@ -11,26 +11,44 @@ describe Css3ProgressBarsHelper do
     describe 'with the color option' do
       describe 'using an invalid color option' do
         it 'does not set a color class in container div' do
-          Nokogiri::HTML(bootstrap_progress_bar(33, :color => 'foo')).search('div.progress').first.attributes["class"].wont_match /progress-foo/
+          Nokogiri::HTML(bootstrap_progress_bar(33, color: 'foo')).search('div.progress').first.attributes["class"].wont_match /progress-foo/
         end
       end
 
       describe 'using a valid color option' do
         it 'sets the correct class in container div' do
-          Nokogiri::HTML(bootstrap_progress_bar(33, :color => 'info')).search('div.progress').first.attributes["class"].must_match /progress-info/
+          Nokogiri::HTML(bootstrap_progress_bar(33, color: 'info')).search('div.progress-bar').first.attributes["class"].must_match /progress-bar-info/
+        end
+      end
+
+      describe 'using a valid color with option and twitter bootstrap 2' do
+        it 'sets the correct class in container div using twitter bootstrap 2' do
+          Nokogiri::HTML(bootstrap_progress_bar(33, bootstrap: 2, color: 'info')).search('div.progress').first.attributes["class"].must_match /progress-info/
         end
       end
     end
 
     describe 'with the striped option' do
       it 'sets the correct class in container div' do
-        Nokogiri::HTML(bootstrap_progress_bar(33, :striped => true)).search('div.progress').first.attributes["class"].must_match /progress-striped/
+        Nokogiri::HTML(bootstrap_progress_bar(33, striped: true)).search('div.progress').first.attributes["class"].must_match /progress-striped/
+      end
+    end
+
+    describe 'with the striped option using twitter bootstrap 2' do
+      it 'sets the correct class in container div using twitter bootstrap 2' do
+        Nokogiri::HTML(bootstrap_progress_bar(33, bootstrap: 2, striped: true)).search('div.progress').first.attributes["class"].must_match /progress-striped/
       end
     end
 
     describe 'with the active option' do
       it 'sets the correct class in container div' do
-        Nokogiri::HTML(bootstrap_progress_bar(12, :active => true)).search('div.progress').first.attributes["class"].must_match /active/
+        Nokogiri::HTML(bootstrap_progress_bar(12, active: true)).search('div.progress').first.attributes["class"].must_match /active/
+      end
+    end
+
+    describe 'with the active option using twitter bootstrap 2' do
+      it 'sets the correct class in container div using twitter bootstrap 2' do
+        Nokogiri::HTML(bootstrap_progress_bar(12, bootstrap: 2, active: true)).search('div.progress').first.attributes["class"].must_match /active/
       end
     end
   end
