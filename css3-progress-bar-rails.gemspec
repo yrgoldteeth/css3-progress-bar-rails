@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Css3::Progress::Bar::Rails::VERSION
   s.authors     = ["Nicholas Fine", "Josh Sullivan"]
   s.email       = ["nicholas.fine@gmail.com", "josh@dipperstove.com"]
-  s.homepage    = "http://ndfine.com/2012/01/03/css3-progress-bars-for-rails.html"
+  s.homepage    = "https://github.com/yrgoldteeth/css3-progress-bar-rails"
   s.summary     = %q{Integrates Josh Sullivan's CSS3 Progress Bars into Rails 3.1+ Projects.}
   s.description = %q{Integrates Josh Sullivan's CSS3 Progress Bars into Rails and adds ActionView helpers for generation.}
 
